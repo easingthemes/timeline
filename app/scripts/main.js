@@ -1,5 +1,7 @@
 'use strict';
-$('li').on('click', function(event) {
+$('.dot-repeat').on('click', function(event) {
 	event.preventDefault();
-	$(this).addClass('active');
+	var elm = document.getElementById('dot-vh1');
+	var newone = elm.cloneNode(true);
+	elm.parentNode.replaceChild(newone, elm);
 });
