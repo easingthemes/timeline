@@ -4,6 +4,8 @@
 $green-dark: #1ed731;
 $green-light: #25ef4a;
 $bg-blue: #3b76f9;
+$blue-bg: #3b76f9;
+$blue-light: #64f4ff;
 $orange: #ff9e0f;
 
 body {
@@ -107,9 +109,9 @@ ul {
       top: 0;
       z-index: 4;
       cursor: pointer;
-
       color: #000;
       background: #fff;
+      opacity: 0;
       
     }
     &:before {
@@ -124,6 +126,7 @@ ul {
       left: 0;
       bottom: 0;
       z-index: 3;
+      opacity: 0;
     }
   }
 }
@@ -131,10 +134,32 @@ ul {
   0% {
     left: -16px;
     right: 100%;
+    background-color: $orange;
+  }
+  20% {
+    background-color: $orange;
+  }
+  21% {
+    background-color: $blue-light;
+  }
+  80% {
+    background-color: $blue-light;
+  }
+  81% {
+    background-color: #fff;
   }
   100% {
     left: 0;
     right: 0;
+    background-color: #fff;
+  }
+}
+@keyframes show {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
   }
 }
 @keyframes textUp {
@@ -162,24 +187,33 @@ ul {
 }
 ul li {
   &:nth-child(1):before {
-    animation: textLeft .5s linear 0s forwards;
+    animation: textLeft .5s linear 0s forwards; //0.5
   }
   &:nth-child(2) span {
-    animation: textUp .5s linear .5s;
+    animation: textUp .5s linear .6s; //1.1
+    &:after, &:before {
+      animation: show .1s linear .5s forwards; //0.6
+    }
   }
   &:nth-child(3):before  {
-    animation: textLeft .5s linear 1s forwards;
+    animation: textLeft .5s linear 1.1s forwards; //1.6
   }
   &:nth-child(4)  span {
-    animation: textUp .5s linear 1.5s;
+    animation: textUp .5s linear 1.7s; //2.2
+    &:after, &:before {
+      animation: show .1s linear 1.6s forwards; //1.7
+    }
   }
   &:nth-child(5):before  {
-    animation: textLeft .5s linear 2s forwards;
+    animation: textLeft .5s linear 2.2s forwards; //2.7
   }
   &:nth-child(6) span {
-    animation: textUp .5s linear 2.5s;
+    animation: textUp .5s linear 2.8s; //3.3
+    &:after, &:before {
+      animation: show .1s linear 2.7s forwards; //2.8
+    }
   }
   &:nth-child(7):before  {
-    animation: textLeft .5s linear 3s forwards;
+    animation: textLeft .5s linear 3.3s forwards; //3.8
   }
 }
