@@ -203,12 +203,7 @@ module.exports = function (grunt) {
     browserify: {
       dist: {
         files: {
-          '<%= config.app %>/scripts/main.js': '<%= config.app %>/scripts/commonjs/app.js'
-        },
-        options: {
-          browserifyOptions: {
-            debug: true
-          }
+          '<%= config.dist %>/scripts/main.js': '<%= config.app %>/scripts/commonjs/app.js'
         }
       },
       watch: {
