@@ -21,28 +21,26 @@
   </head>
   <body>
   
-  <article>
-    <ul id="dot-vh1">
-      <li data-text="Hits">Hits</li>
-      <li class="dot-plus"><span></span></li>
-      <li data-text="Stars">Stars</li>
-      <li class="dot-plus"><span></span></li>
-      <li data-text="Old">Old</li>
-      <li class="dot-plus"><span></span></li>
-      <li data-text="New">New</li>
-    </ul>
-  </article>
+  <article></article>
   <div><a href="" class="dot-repeat">repeat</a></div>
 
-
+  <script  id="skillsTemplate" type="text/template">
+    <ul id="dot-vh1">
+    {{#skills}}
+      <li data-text="{{title}}">{{title}}</li>
+      {{^last}}
+        <li class="dot-plus"><span></span></li>
+      {{/last}}
+    {{/skills}}  
+    </ul>
+  </script>
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/mustache.js/mustache.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
-        <!-- build:js({app,.tmp}) scripts/main.js -->
-        <script src="scripts/main.js"></script>
-        <!-- endbuild -->
+    <script src="scripts/main.js"></script>
 </body>
 </html>

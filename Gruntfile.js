@@ -34,12 +34,16 @@ module.exports = function (grunt) {
         files: ['bower.json'],
         tasks: ['wiredep']
       },
-      js: {
-        files: ['<%= config.app %>/scripts/{,*/}*.js'],
-        tasks: ['jshint'],
-        options: {
-          livereload: true
-        }
+      // js: {
+      //   files: ['<%= config.app %>/scripts/{,*/}*.js'],
+      //   tasks: ['jshint'],
+      //   options: {
+      //     livereload: true
+      //   }
+      // },
+      commonjs: {
+        files: ['<%= config.app %>/scripts/commonjs/**/*.js'],
+        tasks: ['jshint', 'jscs', 'browserify:watch']
       },
       jstest: {
         files: ['test/spec/{,*/}*.js'],
@@ -79,7 +83,7 @@ module.exports = function (grunt) {
       },
       livereload: {
         options: {
-          middleware: function(connect) {
+          middleware: function (connect) {
             return [
               connect.static('.tmp'),
               connect().use('/bower_components', connect.static('./bower_components')),
@@ -92,7 +96,7 @@ module.exports = function (grunt) {
         options: {
           open: false,
           port: 9001,
-          middleware: function(connect) {
+          middleware: function (connect) {
             return [
               connect.static('.tmp'),
               connect.static('test'),
@@ -133,12 +137,19 @@ module.exports = function (grunt) {
       },
       all: [
         'Gruntfile.js',
-        '<%= config.app %>/scripts/{,*/}*.js',
-        '!<%= config.app %>/scripts/vendor/*',
+        '<%= config.app %>/scripts/commonjs/**/*.js',
         'test/spec/{,*/}*.js'
       ]
     },
-
+    jscs: {
+      src: [
+        'Gruntfile.js',
+        '<%= config.app %>/scripts/commonjs/**/*.js'
+      ],
+      options: {
+        config: './.jscsrc'
+      }
+    },
     // Mocha testing framework configuration options
     mocha: {
       all: {
@@ -189,7 +200,27 @@ module.exports = function (grunt) {
         }]
       }
     },
-
+    browserify: {
+      dist: {
+        files: {
+          '<%= config.app %>/scripts/main.js': '<%= config.app %>/scripts/commonjs/app.js'
+        },
+        options: {
+          browserifyOptions: {
+            debug: true
+          }
+        }
+      },
+      watch: {
+        files: {
+          '<%= config.app %>/scripts/main.js': '<%= config.app %>/scripts/commonjs/app.js'
+        },
+        options: {
+          browserifyOptions: {debug: true},
+          watch: true
+        }
+      }
+    },
     // Automatically inject Bower components into the HTML file
     wiredep: {
       app: {
@@ -357,7 +388,8 @@ module.exports = function (grunt) {
     concurrent: {
       server: [
         'sass:server',
-        'copy:styles'
+        'copy:styles',
+        'browserify:dist'
       ],
       test: [
         'copy:styles'

@@ -1,1 +1,0 @@
-"use strict";$(".dot-repeat").on("click",function(a){a.preventDefault();var b=document.getElementById("dot-vh1"),c=b.cloneNode(!0);b.parentNode.replaceChild(c,b)});
